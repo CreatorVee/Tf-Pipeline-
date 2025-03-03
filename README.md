@@ -21,6 +21,7 @@ iam_role_additional_policies = {
     AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
 ```
+An additional line is also required in your MySQL Terraform configuration. Use `depends_on = [module.eks.cluster_name]` to ensure that Terraform waits for the EKS cluster to be fully created before provisioning dependent resources
 
 **Versions:**
 - Terraform: v1.6.1
