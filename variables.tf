@@ -11,5 +11,5 @@ variable cluster_name {
 }
 
 variable region {
-  default = "eu-central-1"
+  default = "eu-north-1"
 }

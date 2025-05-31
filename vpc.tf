@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "my-bucket-twn-exercise"
+    bucket = "my-bucket-veek06-exercise"
     key    = "myapp/state.tfstate"
-    region  = "eu-central-1"
+    region  = "eu-north-1"
   }
 }
 
