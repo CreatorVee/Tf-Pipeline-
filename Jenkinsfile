@@ -7,7 +7,22 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
     }
     stages {
-        stage('provision cluster') {
+
+        stage('Python Validation') {
+            steps {
+                echo "Running Python variable check..."
+                sh "python3 python/check_vars.py"
+            }
+        }
+
+        stage('Ansible Dry-Run') {
+            steps {
+                echo "Running Ansible playbook in check mode..."
+                sh "ansible-playbook ansible/playbook.yml --check -i localhost,"
+            }
+        }
+
+        stage('Provision Cluster') {
             environment {
                 TF_VAR_env_prefix = "dev"
                 TF_VAR_k8s_version = "1.28"
@@ -16,7 +31,8 @@ pipeline {
             }
             steps {
                 script {
-                    echo "creating EKS cluster"
+                    echo "Creating EKS cluster"
+                    
                     sh "terraform init"
                     sh "terraform apply --auto-approve"
                     
@@ -29,6 +45,15 @@ pipeline {
                     sh "aws eks update-kubeconfig --name ${TF_VAR_cluster_name} --region ${TF_VAR_region}"
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline finished successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs for details."
         }
     }
 }
