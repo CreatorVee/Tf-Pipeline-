@@ -129,3 +129,9 @@ How AWS, Kubernetes, and Docker integrate in modern DevOps workflows
 
 
 ---
+
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/0215720b-4ad1-4b85-91b1-62c4ec96ff8c" />
+
+---
+
